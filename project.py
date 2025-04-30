@@ -4,15 +4,17 @@ from datetime import datetime
 
 class Investimento:
     def __init__(self):
-        # Inicializa sem taxas, pois serão informadas pelo usuário
-        self._cdb = 0.0
-        self._cdi = 0.0
-        self._selic = 0.0
-        self._poupanca = 0.0
+        # Inicializa os valores padrão
+        self._valor_investido = 0.0
+        self._tempo = 0
+        self._taxa_cdb = 0.015  # Exemplo de 1,5% ao mês
+        self._taxa_cdi = 0.012  # Exemplo de 1,2% ao mês
+        self._taxa_selic = 0.010  # Exemplo de 1% ao mês
+        self._taxa_poupanca = 0.005  # Exemplo de 0,5% ao mês
 
-    @property  
-    def CDB(self): 
-        return self._cdb
+    @property
+    def cdb(self):
+       return self._valor_investido * (1 + self._taxa_cdb) ** self._tempo
     
     @property  
     def CDI(self): 
