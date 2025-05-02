@@ -6,7 +6,7 @@ class Investimento:
     def __init__(self):
         # Inicializa os valores padrão
         self._valor_investido = 0.0
-        self._tempo = 0
+        valor_investido = 0
         self._taxa_cdb = 0.015  # Exemplo de 1,5% ao mês
         self._taxa_cdi = 0.012  # Exemplo de 1,2% ao mês
         self._taxa_selic = 0.010  # Exemplo de 1% ao mês
@@ -14,7 +14,7 @@ class Investimento:
 
     @property
     def cdb(self):
-       return self._valor_investido * (1 + self._taxa_cdb) ** self._tempo
+       return self._valor_investido * (1 + self._taxa_cdb) ** valor_investido
     
     @property  
     def CDI(self): 
