@@ -29,9 +29,6 @@ class Investimento:
     def poupanca(self):
         return self._valor_investido * (1 + self._taxa_poupanca) ** self._tempo
 
-
-
-# Função que exibe o menu principal ao usuário
 def menu():
     print("="*70)
     print("   *** SIMULADOR DE INVESTIMENTOS ***   ".center(70))
@@ -48,54 +45,82 @@ def menu():
     opcao = input("Para prosseguir, escolha uma opção válida: ")
     return opcao  # Retorna a opção digitada pelo usuário
 
-
-# Função que recebe e retorna o valor a ser investido
 def valor_investido():
-    valor = input("Insira o valor que deseja investir: ")
-    return float(valor)  # Converte o valor digitado em número decimal (float)
+    while True:
+        valor = input("Insira o valor que deseja investir: ")
+        if valor.replace('.', '', 1).isdigit() and valor.count('.') <= 1:  # Garante que se houver mais de um ponto( . ) ele vai ser removido / isdigit() garante que vai ser somente números
+            valor = float(valor)
+            if valor <= 0:
+                print("O valor deve ser maior que zero. Tente novamente.")
+            else:
+                return valor
+        else:
+            print("Erro: O valor deve ser um número válido. Tente novamente.")
 
-
-# Função que recebe e retorna o tempo de investimento
 def meses_investido():
-    meses = input("Por quanto tempo você deseja deixar rendendo? (em meses) ")
-    return int(meses)  # Converte a entrada em número inteiro
+    while True:
+        meses = input("Por quanto tempo você deseja deixar rendendo? (em meses) ")
+        if meses.isdigit(): 
+            meses = int(meses)
+            if meses <= 0:
+                print("O tempo deve ser maior que zero. Tente novamente.")
+            else:
+                return meses
+        else:
+            print("Erro: O tempo deve ser um número válido. Tente novamente.")
 
+investimento = Investimento()  # Instância da classe Investimento antes do loop principal
 
-# Criação da instância da classe Investimento antes do loop principal
-investimento = Investimento()
-
-# Loop principal do programa
 while True:
-    opcao = menu()  # Mostra o menu e recebe a escolha do usuário
+    opcao = menu() 
     if opcao == "1":
-        valor = valor_investido()     # Pergunta o valor a ser investido
-        tempo = meses_investido()     # Pergunta o tempo de investimento
+        valor = valor_investido()   
+        tempo = meses_investido()     
 
-        investimento.definir_investimento(valor, tempo) # Define os valores no objeto de investimento
+        investimento.definir_investimento(valor, tempo) # Chama o método da instância Investimento e passando valores
+        retorno = investimento.cdb # Acessando a propriedade com o decorador, busca o cáculo de lá
 
-        retorno = investimento.cdb # Realiza o cálculo de retorno para CDB
-
-        print(f"\nValor investido: R$ {valor:.2f}")# Exibe as informações formatadas para o usuário
+        print(f"\nValor investido: R$ {valor:.2f}")
         print(f"Tempo: {tempo} meses")
-        print(f"Retorno estimado em CDB: R$ {retorno:.2f}\n")  #:.2f Indica o resultado em 2 casas decimais, f de número flutuante
+        print(f"\nRetorno estimado com o investimento aplicado no CDB: R$ {retorno:.2f}\n")  # :.2f Indica o resultado em 2 casas decimais, f de número flutuante
+        print(f"Rendimento (lucro obtido): R$ {retorno - valor:.2f}\n")
 
     elif opcao == "2":
         valor = valor_investido()
         tempo = meses_investido()
 
         investimento.definir_investimento(valor, tempo)
-        retorno = investimento.cdb
+        retorno = investimento.cdi
         
         print(f"\nValor investido: R$ {valor:.2f}")
         print(f"Tempo: {tempo} meses")
-        print(f"Retorno estimado em CDB: R$ {retorno:.2f}\n")
+        print(f"\nRetorno estimado com o investimento aplicado no CDI: R$ {retorno:.2f}")
+        print(f"Rendimento (lucro obtido): R$ {retorno - valor:.2f}\n")
 
     elif opcao == "3":
-        print("Opção Selic selecionada.")
+        valor = valor_investido()
+        tempo = meses_investido()
+
+        investimento.definir_investimento(valor, tempo)
+        retorno = investimento.selic
+        
+        print(f"\nValor investido: R$ {valor:.2f}")
+        print(f"\nRetorno estimado com o investimento aplicado na taxa Selic: R$ {retorno:.2f}")
+        print(f"Rendimento (lucro obtido): R$ {retorno - valor:.2f}\n")
+
     elif opcao == "4":
-        print("Opção Poupança selecionada.")
+        valor = valor_investido()
+        tempo = meses_investido()
+
+        investimento.definir_investimento(valor, tempo)
+        retorno = investimento.poupanca
+        
+        print(f"\nValor investido: R$ {valor:.2f}")
+        print(f"\nRetorno estimado com o pior investimento do mundo, a Poupança: R$ {retorno:.2f}")
+        print(f"Rendimento (lucro obtido): R$ {retorno - valor:.2f}\n")
+
     elif opcao == "5":
-        print("Saindo...")  # Finaliza o programa
+        print("Saindo...")
         break
     else:
-        print("Opção inválida. Tente novamente.")  # Trata entradas incorretas
+        print("Opção inválida. Tente novamente.")
