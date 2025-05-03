@@ -28,6 +28,20 @@ class Investimento:
     @property
     def poupanca(self):
         return self._valor_investido * (1 + self._taxa_poupanca) ** self._tempo
+    
+    def _calcular_imposto(self, retorno_bruto):
+        if self._tempo <= 180:
+            aliquota_ir = 0.225
+        elif self._tempo <= 360:
+            aliquota_ir = 0.20
+        elif self._tempo <= 720:
+            aliquota_ir = 0.175
+        else:
+            aliquota_ir = 0.15
+        
+        # Cálculo do valor líquido após desconto de IR
+        retorno_liquido = retorno_bruto * (1 - aliquota_ir)
+        return retorno_liquido
 
 def menu():
     print("="*70)
@@ -78,24 +92,42 @@ while True:
         tempo = meses_investido()     
 
         investimento.definir_investimento(valor, tempo) # Chama o método da instância Investimento e passando valores
-        retorno = investimento.cdb # Acessando a propriedade com o decorador, busca o cáculo de lá
 
-        print(f"\nValor investido: R$ {valor:.2f}")
-        print(f"Tempo: {tempo} meses")
-        print(f"\nRetorno estimado com o investimento aplicado no CDB: R$ {retorno:.2f}\n")  # :.2f Indica o resultado em 2 casas decimais, f de número flutuante
-        print(f"Rendimento (lucro obtido): R$ {retorno - valor:.2f}\n")
+        retorno_bruto = investimento.cdb # Acessando a propriedade com o decorador, busca o cáculo de lá
+        retorno_liquido = investimento._calcular_imposto(retorno_bruto) # Acessa a função para calcular imposto na classe investimentos
 
-    elif opcao == "2":
-        valor = valor_investido()
-        tempo = meses_investido()
-
-        investimento.definir_investimento(valor, tempo)
-        retorno = investimento.cdi
+        lucro_bruto = retorno_bruto - valor
+        lucro_liquido = retorno_liquido - valor
         
         print(f"\nValor investido: R$ {valor:.2f}")
         print(f"Tempo: {tempo} meses")
-        print(f"\nRetorno estimado com o investimento aplicado no CDI: R$ {retorno:.2f}")
-        print(f"Rendimento (lucro obtido): R$ {retorno - valor:.2f}\n")
+
+        print(f"\n📈 Retorno BRUTO (sem IR): R$ {retorno_bruto:.2f}")
+        print(f"💰 Lucro BRUTO: R$ {lucro_bruto:.2f}")
+
+        print(f"\n✅ Retorno LÍQUIDO (com IR): R$ {retorno_liquido:.2f}")
+        print(f"🏦 Lucro LÍQUIDO: R$ {lucro_liquido:.2f}\n")
+
+    elif opcao == "2":
+        valor = valor_investido()   
+        tempo = meses_investido()     
+
+        investimento.definir_investimento(valor, tempo)
+        retorno_bruto = investimento.cdi
+        retorno_liquido = investimento._calcular_imposto(retorno_bruto)
+
+        lucro_bruto = retorno_bruto - valor
+        lucro_liquido = retorno_liquido - valor
+        
+        print(f"\nValor investido: R$ {valor:.2f}")
+        print(f"Tempo: {tempo} meses")
+
+        print(f"\n📈 Retorno BRUTO (sem IR): R$ {retorno_bruto:.2f}")
+        print(f"💰 Lucro BRUTO: R$ {lucro_bruto:.2f}")
+
+        print(f"\n✅ Retorno LÍQUIDO (com IR): R$ {retorno_liquido:.2f}")
+        print(f"🏦 Lucro LÍQUIDO: R$ {lucro_liquido:.2f}\n")
+
 
     elif opcao == "3":
         valor = valor_investido()
@@ -117,7 +149,7 @@ while True:
         
         print(f"\nValor investido: R$ {valor:.2f}")
         print(f"\nRetorno estimado com o pior investimento do mundo, a Poupança: R$ {retorno:.2f}")
-        print(f"Rendimento (lucro obtido): R$ {retorno - valor:.2f}\n")
+        print(f"Rendimento (lucro obtido bruto): R$ {retorno - valor:.2f}\n\n")
 
     elif opcao == "5":
         print("Saindo...")
