@@ -30,17 +30,21 @@ class Investimento:
         return self._valor_investido * (1 + self._taxa_poupanca) ** self._tempo
     
     def _calcular_imposto(self, retorno_bruto):
-        if self._tempo <= 180:
-            aliquota_ir = 0.225
-        elif self._tempo <= 360:
+        dias = self._tempo * 30  # Converte meses em dias, pois o imposto muda dependendo da quantidade de dias investido
+
+        if dias <= 180:  #180 dias = 22,5% (Adaptado para meses com self._tempo, assumindo que o mês tem 30 dias)
+            aliquota_ir = 0.225  
+        elif dias <= 360:  #181 a 360 dias = 20%
             aliquota_ir = 0.20
-        elif self._tempo <= 720:
+        elif dias <= 720:  #361 a 720 dias = 17%
             aliquota_ir = 0.175
         else:
-            aliquota_ir = 0.15
+            aliquota_ir = 0.15 #Acima de 720 dias
         
         # Cálculo do valor líquido após desconto de IR
-        retorno_liquido = retorno_bruto * (1 - aliquota_ir)
+        rendimento = retorno_bruto - self._valor_investido
+        imposto = rendimento * aliquota_ir
+        retorno_liquido = retorno_bruto - imposto
         return retorno_liquido
 
 def menu():
@@ -148,8 +152,7 @@ while True:
         retorno = investimento.poupanca
         
         print(f"\nValor investido: R$ {valor:.2f}")
-        print(f"\nRetorno estimado com o pior investimento do mundo, a Poupança: R$ {retorno:.2f}")
-        print(f"Rendimento (lucro obtido bruto): R$ {retorno - valor:.2f}\n\n")
+        print(f"\nRetorno estimado com o investimento aplicado na Poupança: R$ {retorno:.2f}")
 
     elif opcao == "5":
         print("Saindo...")
