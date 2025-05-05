@@ -71,19 +71,19 @@ During this project, I was able to:
 ## 📸 Preview do Projeto | Project Preview
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/10e53a1d-76dd-4348-9416-45038d79676a" width="800"/>
+  <img src="https://github.com/user-attachments/assets/10e53a1d-76dd-4348-9416-45038d79676a" />
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/e31ab297-e114-4bfc-9045-cc0e77721c16" width="800"/>
+  <img src="https://github.com/user-attachments/assets/e31ab297-e114-4bfc-9045-cc0e77721c16" />
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/62870666-fa61-4399-9310-b014a96791ec" width="800"/>
+  <img src="https://github.com/user-attachments/assets/62870666-fa61-4399-9310-b014a96791ec" />
 </p>
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/aa441cc3-f8f1-44a8-a186-e689486b29a4" width="800"/>
+  <img src="https://github.com/user-attachments/assets/aa441cc3-f8f1-44a8-a186-e689486b29a4" />
 </p>
 
 ---
