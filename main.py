@@ -2,24 +2,42 @@ class Investimento:
     def __init__(self):
         self._valor_investido = 0.0
         self._tempo = 0
-        self._taxa_cdb = 0.015
-        self._taxa_cdi = 0.012
+        self._taxa_cdb = 0.015  # taxa base (100%)
+        self._taxa_cdi = 0.012  # taxa base (100%)
         self._taxa_selic = 0.010
         self._taxa_poupanca = 0.005
+        self._ajuste_cdb = 1.0
+        self._ajuste_cdi = 1.0
 
-    def definir_investimento(self, valor, tempo):
+    def definir_investimento(self, valor, tempo): 
         if valor <= 0 or tempo <= 0:
             raise ValueError("Valor e tempo devem ser positivos.")
         self._valor_investido = valor
         self._tempo = tempo
 
+    def ajustar_cdb(self, porcentagem):
+        if porcentagem < 100:
+            print("⚠️ O valor informado é menor que 100%. Usando padrão de 100%.")
+            self._ajuste_cdb = 1.0
+        else:
+            self._ajuste_cdb = porcentagem / 100
+
+    def ajustar_cdi(self, porcentagem):
+        if porcentagem < 100:
+            print("⚠️ O valor informado é menor que 100%. Usando padrão de 100%.")
+            self._ajuste_cdi = 1.0
+        else:
+            self._ajuste_cdi = porcentagem / 100
+
     @property
     def cdb(self):
-        return self._valor_investido * (1 + self._taxa_cdb) ** self._tempo
+        taxa_final = self._taxa_cdb * self._ajuste_cdb
+        return self._valor_investido * (1 + taxa_final) ** self._tempo
 
     @property
     def cdi(self):
-        return self._valor_investido * (1 + self._taxa_cdi) ** self._tempo
+        taxa_final = self._taxa_cdi * self._ajuste_cdi
+        return self._valor_investido * (1 + taxa_final) ** self._tempo
 
     @property
     def selic(self):
@@ -93,31 +111,18 @@ while True:
     opcao = menu() 
     if opcao == "1":
         valor = valor_investido()   
-        tempo = meses_investido()     
-
-        investimento.definir_investimento(valor, tempo) # Chama o método da instância Investimento e passando valores
-
-        retorno_bruto = investimento.cdb # Acessando a propriedade com o decorador, busca o cáculo de lá
-        retorno_liquido = investimento._calcular_imposto(retorno_bruto) # Acessa a função para calcular imposto na classe investimentos
-
-        lucro_bruto = retorno_bruto - valor
-        lucro_liquido = retorno_liquido - valor
+        tempo = meses_investido()
         
-        print(f"\nValor investido: R$ {valor:.2f}")
-        print(f"Tempo: {tempo} meses")
-
-        print(f"\n📈 Retorno BRUTO (sem IR): R$ {retorno_bruto:.2f}")
-        print(f"💰 Lucro BRUTO: R$ {lucro_bruto:.2f}")
-
-        print(f"\n✅ Retorno LÍQUIDO (com IR): R$ {retorno_liquido:.2f}")
-        print(f"🏦 Lucro LÍQUIDO: R$ {lucro_liquido:.2f}\n")
-
-    elif opcao == "2":
-        valor = valor_investido()   
-        tempo = meses_investido()     
-
+        try:
+            porcentagem = float(input("Informe a porcentagem do CDB (mínimo 100, ex: 110 para 110%): "))
+        except ValueError:
+            print("Entrada inválida. Usando padrão de 100%.")
+            porcentagem = 100
+        
         investimento.definir_investimento(valor, tempo)
-        retorno_bruto = investimento.cdi
+        investimento.ajustar_cdb(porcentagem)
+
+        retorno_bruto = investimento.cdb
         retorno_liquido = investimento._calcular_imposto(retorno_bruto)
 
         lucro_bruto = retorno_bruto - valor
@@ -125,13 +130,36 @@ while True:
         
         print(f"\nValor investido: R$ {valor:.2f}")
         print(f"Tempo: {tempo} meses")
-
         print(f"\n📈 Retorno BRUTO (sem IR): R$ {retorno_bruto:.2f}")
         print(f"💰 Lucro BRUTO: R$ {lucro_bruto:.2f}")
-
         print(f"\n✅ Retorno LÍQUIDO (com IR): R$ {retorno_liquido:.2f}")
         print(f"🏦 Lucro LÍQUIDO: R$ {lucro_liquido:.2f}\n")
 
+    elif opcao == "2":
+        valor = valor_investido()   
+        tempo = meses_investido()
+
+        try:
+            porcentagem = float(input("Informe a porcentagem do CDI (mínimo 100, ex: 110 para 110%): "))
+        except ValueError:
+            print("Entrada inválida. Usando padrão de 100%.")
+            porcentagem = 100
+
+        investimento.definir_investimento(valor, tempo)
+        investimento.ajustar_cdi(porcentagem)
+
+        retorno_bruto = investimento.cdi
+        retorno_liquido = investimento._calcular_imposto(retorno_bruto)
+
+        lucro_bruto = retorno_bruto - valor
+        lucro_liquido = retorno_liquido - valor
+
+        print(f"\nValor investido: R$ {valor:.2f}")
+        print(f"Tempo: {tempo} meses")
+        print(f"\n📈 Retorno BRUTO (sem IR): R$ {retorno_bruto:.2f}")
+        print(f"💰 Lucro BRUTO: R$ {lucro_bruto:.2f}")
+        print(f"\n✅ Retorno LÍQUIDO (com IR): R$ {retorno_liquido:.2f}")
+        print(f"🏦 Lucro LÍQUIDO: R$ {lucro_liquido:.2f}\n")
 
     elif opcao == "3":
         valor = valor_investido()
@@ -159,3 +187,4 @@ while True:
         break
     else:
         print("Opção inválida. Tente novamente.")
+
