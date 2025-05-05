@@ -1,14 +1,12 @@
-# 💰 Calculadora de Investimentos | Investment Calculator
+# 📈 Calculadora de Investimentos | Investment Calculator
 
 ## 🇧🇷 Bem-vindo à Calculadora de Investimentos!
 
-Esse projeto nasceu da vontade de facilitar o entendimento sobre investimentos populares no Brasil. Utilizando **Python orientado a objetos** e a biblioteca **CustomTkinter**, desenvolvi uma interface intuitiva para simular os rendimentos dos principais métodos de aplicação: **CDB**, **CDI**, **Poupança** e **SELIC**.
-
----
+Esse projeto nasceu do interesse em compreender melhor os investimentos populares no Brasil e, ao mesmo tempo, aprofundar meus conhecimentos em programação orientada a objetos. Utilizando **Python orientado a objetos** e a biblioteca **CustomTkinter**, desenvolvi uma interface intuitiva para simular os rendimentos dos principais métodos de aplicação: **CDB**, **CDI**, **Poupança** e **SELIC**.
 
 ## 🇺🇸 Welcome to the Investment Calculator!
 
-This project was created to simplify the understanding of popular investment types in Brazil. Using **object-oriented Python** and the **CustomTkinter** library, I developed an intuitive interface to simulate returns for key investment methods: **CDB**, **CDI**, **Savings**, and **SELIC**.
+This project was born from my interest in better understanding popular investments in Brazil while also improving my skills in object-oriented programming. Using **object-oriented Python** and the **CustomTkinter** library, I developed an intuitive interface to simulate returns for key investment methods: **CDB**, **CDI**, **Savings**, and **SELIC**.
 
 ---
 
@@ -22,7 +20,8 @@ Ela conta com:
 - Interface responsiva e moderna  
 - Cálculo baseado nas fórmulas reais de rendimento  
 - Suporte para os investimentos mais comuns no Brasil  
-- Resultados exibidos de forma clara e didática
+- Imposto de renda incluído no cálculo  
+- Resultados exibidos de forma clara  
 
 ### 🇺🇸
 This calculator was designed for beginners and curious investors who want a clear and simple visualization of how their investments may grow, based on provided rates and terms.
@@ -30,16 +29,17 @@ This calculator was designed for beginners and curious investors who want a clea
 It features:
 
 - A responsive and modern interface  
-- Realistic yield calculations  
-- Support for Brazil’s most common investments  
-- Clear and educational display of results
+- Realistic yield calculations based on actual formulas  
+- Support for Brazil’s most common investment types  
+- Income tax included in the calculation  
+- Clear and educational display of results  
 
 ---
 
 ## 🧰 Tecnologias Utilizadas | Technologies Used
 
 ### 🇧🇷
-- **Python (OOP)**: Estrutura orientada a objetos para facilitar manutenção, reuso de código e organização.  
+- **Python (POO)**: Estrutura orientada a objetos para facilitar manutenção, reuso de código e organização.  
 - **CustomTkinter**: Usado para criar uma interface gráfica moderna, com suporte para modo escuro, botões estilizados e responsividade.
 
 ### 🇺🇸
@@ -51,7 +51,7 @@ It features:
 ## 📘 O Que Eu Aprendi | What I Learned
 
 ### 🇧🇷
-Durante o desenvolvimento desse projeto, pude:
+Durante o desenvolvimento deste projeto, pude:
 
 - Aprofundar meus conhecimentos em **Python Orientado a Objetos**  
 - Praticar o uso da biblioteca **CustomTkinter** para criar interfaces visuais agradáveis  
@@ -64,7 +64,7 @@ During this project, I was able to:
 - Deepen my knowledge of **Object-Oriented Python**  
 - Practice using **CustomTkinter** to build attractive graphical interfaces  
 - Understand the logic behind financial simulations using real formulas  
-- Improve my ability to deliver a smooth user experience
+- Improve my ability to deliver a smooth and user-friendly experience  
 
 ---
 
