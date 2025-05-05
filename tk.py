@@ -110,7 +110,7 @@ def limpar_resultado():
 
 # LAYOUT DA INTERFACE
 ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
+ctk.set_default_color_theme("green")
 
 app = ctk.CTk()
 app.title("Calculadora de Investimentos")
